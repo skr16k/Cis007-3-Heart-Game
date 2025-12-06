@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heart Game</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/css/app.css"/>
+</head>
+<body>
+<header class="hdr">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="text-xl font-semibold">♥ Heart Game</a>
+    <nav class="pill-nav space-x-2">
+      <a href="/">Play</a>
+      <a href="/leaderboard">Leaderboard</a>
+      % if session:
+      <a href="/profile">Profile</a>
+      % if session[2] == 1:
+      <a href="/admin">Admin</a>
+      % end
+      <a href="/logout">Logout ({{session[1]}})</a>
+      % else:
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+      % end
+    </nav>
+  </div>
+</header>
+<main class="max-w-5xl mx-auto px-4 py-6">
+  {{!base}}
+</main>
+<footer class="text-center text-sm text-slate-500 py-8">CIS007-3- | © Heart Game Project by shree Krishna rimal</footer>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

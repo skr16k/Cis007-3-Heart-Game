@@ -1,0 +1,18 @@
+% rebase('views/base.html', session=session)
+<section class="glass max-w-xl mx-auto space-y-4">
+  <h1 class="headline text-2xl font-bold">Edit Player</h1>
+  % if error:
+  <div class="bg-red-50 text-red-700 p-3 rounded">{{error}}</div>
+  % end
+  <form method="post" action="/admin/update_user" class="space-y-3">
+    <input type="hidden" name="user_id" value="{{u['id']}}"/>
+    <label class="block"><span class="text-sm text-slate-600">Username</span><input name="username" class="input" value="{{u['username']}}"/></label>
+    <label class="block"><span class="text-sm text-slate-600">New Password (optional)</span><input type="password" name="password" class="border rounded-lg p-2 w-full" placeholder="••••••••"/></label>
+    % checked = 'checked' if u['is_admin']==1 else ''
+    <label class="inline-flex items-center gap-2 text-sm"><input type="checkbox" name="is_admin" {{checked}} class="rounded border"/> Admin</label>
+    <div class="flex gap-2 pt-2">
+      <a href="/admin" class="btn btn-secondary">Cancel</a>
+      <button class="btn btn-primary">Save Changes</button>
+    </div>
+  </form>
+</section>

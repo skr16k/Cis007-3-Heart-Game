@@ -1,0 +1,48 @@
+% rebase('views/base.html', session=session)
+<section class="glass space-y-6">
+  <div class="flex items-center justify-between">
+    <h1 class="headline text-2xl font-bold">Admin Dashboard</h1>
+    % if msg:
+    <div class="text-sm text-emerald-700 bg-emerald-50 px-3 py-1 rounded">{{msg}}</div>
+    % end
+  </div>
+  <div class="rounded-xl border p-4">
+    <h2 class="subhead text-lg font-semibold mb-3">Create New Player</h2>
+    <form method="post" action="/admin/create_user" class="grid md:grid-cols-4 gap-3 items-end">
+      <input name="username" class="input" placeholder="Username"/>
+      <input type="password" name="password" class="input" placeholder="Password (min 8 chars, 1 special)"/>
+      <label class="inline-flex items-center gap-2 text-sm"><input type="checkbox" name="is_admin" class="rounded border"/> Admin</label>
+      <button class="btn btn-primary">Create</button>
+    </form>
+  </div>
+  <div class="rounded-xl border overflow-x-auto">
+    <table class="min-w-full text-sm">
+      <thead>
+        <tr class="text-left text-slate-500 border-b">
+          <th class="p-2">ID</th><th class="p-2">Username</th><th class="p-2">Role</th><th class="p-2">Created</th><th class="p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        % for u in users:
+        <tr class="border-t">
+          <td class="p-2">{{u['id']}}</td>
+          <td class="p-2">{{u['username']}}</td>
+          <td class="p-2">{{'Admin' if u['is_admin'] else 'Player'}}</td>
+          <td class="p-2">{{u['created_at']}}</td>
+          <td class="p-2">
+            <div class="flex gap-2">
+              <a href="/admin/edit/{{u['id']}}" class="px-3 py-1 rounded bg-indigo-600 text-white">Edit</a>
+              % if u['username'] != 'admin':
+              <form method="post" action="/admin/delete_user" onsubmit="return confirm(&quot;Delete user {{u['username']}}?&quot;)">
+                <input type="hidden" name="user_id" value="{{u['id']}}"/>
+                <button class="px-3 py-1 rounded bg-red-600 text-white">Delete</button>
+              </form>
+              % end
+            </div>
+          </td>
+        </tr>
+        % end
+      </tbody>
+    </table>
+  </div>
+</section>

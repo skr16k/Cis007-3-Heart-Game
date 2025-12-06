@@ -1,0 +1,31 @@
+% rebase('views/base.html', session=session)
+<section class="glass space-y-4">
+  <h1 class="headline text-2xl font-bold">My Profile</h1>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="rounded-xl border p-4"><div class="text-sm text-slate-500">Username</div><div class="text-xl font-semibold">{{user['username']}}</div></div>
+    <div class="rounded-xl border p-4"><div class="text-sm text-slate-500">Role</div><div class="text-xl font-semibold">{{'Admin' if user['is_admin'] else 'Player'}}</div></div>
+    <div class="rounded-xl border p-4"><div class="text-sm text-slate-500">Joined</div><div class="text-xl font-semibold">{{user['created_at']}}</div></div>
+  </div>
+  <div class="glass overflow-x-auto">
+    <h2 class="subhead text-lg font-semibold mb-3">My Attempts</h2>
+    <table class="min-w-full text-sm">
+      <thead>
+        <tr class="text-left text-slate-500 border-b">
+          <th class="p-2">When</th><th class="p-2">Difficulty</th><th class="p-2">Level</th><th class="p-2">Time (s)</th><th class="p-2">Correct?</th><th class="p-2">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        % for s in attempts:
+        <tr class="border-t">
+          <td class="p-2">{{s['created_at']}}</td>
+          <td class="p-2">{{s['difficulty']}}</td>
+          <td class="p-2">{{s['level']}}</td>
+          <td class="p-2">{{s['seconds_taken']}}</td>
+          <td class="p-2">{{'Yes' if s['correct'] else 'No'}}</td>
+          <td class="p-2">{{s['points']}}</td>
+        </tr>
+        % end
+      </tbody>
+    </table>
+  </div>
+</section>

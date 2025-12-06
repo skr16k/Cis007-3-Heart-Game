@@ -1,0 +1,23 @@
+% rebase('views/base.html', session=session)
+<section class="glass">
+  <h1 class="headline text-2xl font-bold mb-4">Leaderboard (Total Score)</h1>
+  <div class="overflow-x-auto">
+    <table class="min-w-full text-sm">
+      <thead>
+        <tr class="text-left text-slate-500 border-b">
+          <th class="p-2">Rank</th><th class="p-2">Player</th><th class="p-2">Total Score</th><th class="p-2">Last Played</th>
+        </tr>
+      </thead>
+      <tbody>
+        % for i,row in enumerate(rows, start=1):
+        <tr class="border-t">
+          <td class="p-2">{{i}}</td>
+          <td class="p-2">{{row['username']}}</td>
+          <td class="p-2">{{row['total_points'] or 0}}</td>
+          <td class="p-2">{{row['last_played'] or '-'}}</td>
+        </tr>
+        % end
+      </tbody>
+    </table>
+  </div>
+</section>
